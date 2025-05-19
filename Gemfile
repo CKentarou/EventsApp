@@ -55,3 +55,4 @@ group :test do
 end
 
 gem "haml-rails", "~> 2.0"
+gem "html2haml", "~> 2.0"
