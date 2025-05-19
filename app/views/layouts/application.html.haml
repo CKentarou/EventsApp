@@ -27,8 +27,12 @@
           %span.navbar-toggler-icon
         #navbarNav.collapse.navbar-collapse
           %ul.navbar-nav.ms-auto
-            %li.nav-item
-              = link_to "GitHubでログイン", "/auth/github", class: "nav-link", method: :post
+            - if logged_in?
+              %li.nav-item
+                = link_to "ログアウト", logout_path, class: "nav-link", method: :delete
+            - else
+              %li.nav-item
+                = link_to "ログイン(GitHub)", "/auth/github", class: "nav-link"
 
     / メインコンテンツ
     .container.mt-4
