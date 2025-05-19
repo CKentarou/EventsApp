@@ -354,9 +354,9 @@ DEPENDENCIES
   haml-rails (~> 2.0)
   importmap-rails
   jbuilder
-  omniauth (~> 2.0)
-  omniauth-github (~> 2.0)
-  omniauth-rails_csrf_protection (~> 1.0)
+  omniauth
+  omniauth-github
+  omniauth-rails_csrf_protection
   puma (>= 5.0)
   rails (~> 7.2.2, >= 7.2.2.1)
   rubocop-rails-omakase
