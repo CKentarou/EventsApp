@@ -61,3 +61,5 @@ gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
 
 gem 'byebug'
+
+gem 'rails-i18n'
