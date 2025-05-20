@@ -1,10 +1,12 @@
-%h1.mt-3.mb3= @event.name
+%h1.mt-3.mb-3= @event.name
+
 .row 
   .col-8
     .card.mb-2 
       %h5.card-header イベント内容
       .card-body 
         %p.card-text= @event.content
+
     .card.mb-2 
       %h5.card-header 開催日時
       .card-body 
@@ -12,10 +14,12 @@
           %p.card-text= "#{l(@event.start_at, format: :long)} - #{l(@event.end_at, format: :long)}"
         - else
           %p.card-text 日時情報がありません
+
     .card.mb-2
       %h5.card-header 開催場所
       .card-body 
         %p.card-text= @event.place
+
     .card.mb-2
       %h5.card-header 主催者
       .card-body 
@@ -26,7 +30,27 @@
         - else
           %p.card-text 主催者情報がありません
 
-  .col-4 
-    - if current_user && @event.created_by?(current_user)
+  .col-4
+    - if @event.created_by?(current_user)
       = link_to "イベントを編集する", edit_event_path(@event), class: "btn btn-info btn-lg btn-block"
-      = link_to "イベントを削除する", event_path(@event), class: "btn btn-danger btn-lg btn-block mt-2", method: :delete, data: { confirm: "本当に削除しますか？" }
+      = link_to "イベントを削除する", event_path(@event), class: "btn btn-danger btn-lg btn-block", method: :delete, data: { confirm: "本当に削除しますか？" }
+
+    - if logged_in?
+      %button.btn.btn-primary.btn-lg.btn-block{ "data-bs-toggle": "modal", "data-bs-target": "#createTicket" }
+        参加する
+
+      %div.modal.fade#createTicket
+        .modal-dialog
+          .modal-content
+            .modal-header
+              %h4.modal-title#dialogHeader 参加コメント
+              %button.close{ type: "button", "data-dismiss": "modal" } &times;
+            = form_with(model: @event.tickets.build, url: event_tickets_path(@event)) do |f|
+              .modal-body
+                #createTicketErrors
+                = f.text_field :comment, class: "form-control"
+              .modal-footer
+                %button.btn.btn-default{ type: "button", "data-dismiss": "modal" } キャンセル
+                = f.button "送信", class: "btn btn-primary"
+    - else
+      = link_to "参加する", new_event_ticket_path(@event), class: "btn btn-primary btn-lg btn-block"
