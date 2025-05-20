@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  skip_before_action :authenticate, only: :show
+
   def new
     @event = current_user.created_events.build
   end
@@ -12,6 +14,10 @@ class EventsController < ApplicationController
       flash.now[:alert] = '作成に失敗しました'
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @event = Event.find(params[:id])
   end
 
   private
