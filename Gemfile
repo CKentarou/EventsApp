@@ -54,8 +54,6 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "haml-rails", "~> 2.0"
-
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection'
