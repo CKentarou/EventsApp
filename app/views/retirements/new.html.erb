@@ -1,17 +1,5 @@
 <h1 class="mt-3">退会の確認</h1>
 
-<% if @user.errors.any? %>
-  <div class="alert alert-danger">
-    <h4 class="alert-heading"><%= @user.errors.full_messages.first %></h4>
-    <p>退会できませんでした。以下の内容を確認してください。</p>
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
 <p>退会した場合、ユーザに関するデータが全て削除されます。</p>
 <p>ただし、以下の場合は退会できません。</p>
 
@@ -22,4 +10,4 @@
 
 <hr>
 
-<%= link_to "退会する", retirements_path, method: :post, remote: true, class: "btn btn-danger", data: { confirm: "本当に退会しますか？" } %>
+<%= link_to "退会する", retirements_path, method: :post, class: "btn btn-danger", data: { confirm: "本当に退会しますか？" } %>

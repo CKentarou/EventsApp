@@ -4,9 +4,12 @@ class RetirementsController < ApplicationController
   end
 
   def create
-    if current_user.destroy
+    @user = current_user
+    if @user.destroy
       reset_session
       redirect_to root_path, notice: '退会しました'
+    else
+      redirect_to root_path, alert: @user.errors.full_messages.join(', ')
     end
   end
 end

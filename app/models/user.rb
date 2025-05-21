@@ -20,18 +20,22 @@ class User < ApplicationRecord
   private
 
   def check_all_events_finished
-
     Rails.logger.debug "Running check_all_events_finished callback"
-
+  
     now = Time.zone.now
-    if created_events.where(":now < end_at", now: now).exists?
-      errors[:base] << "あなたが主催する未終了のイベントがあります"
+    if created_events.where("end_at > ?", now).exists?
+      errors.add(:base, "あなたが作成した未終了のイベントがあります")
     end
-
-    if participating_events.where(":now < end_at", now: now).exists?
-      errors[:base] << "あなたが参加する未終了のイベントがあります"
+  
+    if participating_events.where("end_at > ?", now).exists?
+      errors.add(:base, "あなたが参加する未終了のイベントがあります")
     end
-
-    throw(:abort) unless errors.empty?
+  
+    if errors.empty?
+      Rails.logger.debug "エラーがないため削除を続行します"
+    else
+      Rails.logger.debug "エラーがあるため削除を中断します: #{errors.full_messages}"
+      throw(:abort)
+    end
   end
 end
