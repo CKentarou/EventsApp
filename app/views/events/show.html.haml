@@ -28,7 +28,7 @@
             = image_tag @event.owner.image_url, width: 50, height: 50, class: "rounded-circle me-2"
             = "@#{@event.owner.name}"
         - else
-          %p.card-text 主催者情報がありません
+          退会したユーザです
 
   .col-4
     - if @event.created_by?(current_user)
@@ -62,7 +62,10 @@
       %ul.list-group.list-group-flush
         - @tickets.each do |ticket|
           %li.list-group-item
-            = link_to(url_for_github(ticket.user), class: "card-link") do
-              = image_tag ticket.user.image_url, width: 20, height: 20, class: "rounded-circle me-2"
-              = "@#{ticket.user.name}"
-            = " #{ticket.comment}"
+            - if ticket.user
+              = link_to(url_for_github(ticket.user), class: "card-link") do
+                = image_tag ticket.user.image_url, width: 20, height: 20, class: "rounded-circle me-2"
+                = "@#{ticket.user.name}"
+              = " #{ticket.comment}"
+            - else
+              退会したユーザです
