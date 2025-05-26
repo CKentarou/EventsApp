@@ -1,6 +1,7 @@
 module SignInHelper
   def sign_in_as(user)
     OmniAuth.config.test_mode = true
+    OmniAuth.config.silence_get_warning = true
     OmniAuth.config.add_mock(
       user.provider,
       uid: user.uid,
