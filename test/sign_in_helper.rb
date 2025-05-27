@@ -10,6 +10,7 @@ module SignInHelper
     
     visit root_url
     click_on "Log in"
+    assert_selector "div.alert", text: "ログインしました"
     @current_user = user
   end
 
