@@ -8,13 +8,24 @@ module SignInHelper
       info: { nickname: user.name, 
               image: user.image_url,})
     
-    visit root_url
-    click_on "Log in"
-    assert_selector "div.alert", text: "ログインしました"
+    case
+    when respond_to?(:visit)
+      visit root_url
+      click_on "Log in"
+      assert_selector "div.alert", text: "ログインしました"
+    when respond_to?(:get)
+      get "/auth/github/callback"
+    else
+      raise NotImplementedError.new
+    end
     @current_user = user
   end
 
   def current_user
     @current_user
   end
+end
+
+class ActionDispatch::IntegrationTest
+  include SignInHelper
 end
