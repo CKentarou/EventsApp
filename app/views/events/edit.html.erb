@@ -52,7 +52,9 @@
   <div class="form-group">
     <% if @event.image.attached? %>
       <div class="col-sm-10">
+      <% if @event.image.attached? && @event.image.blob&.persisted? %>
         <%= image_tag @event.image.variant(resize_to_fit: [200, 200]), class: "img-thumbnail mb-2" %>
+      <% end %>
       </div>
     <% end %>
     <%= f.label :image, class: "col-sm-2 control-label" %>
@@ -61,7 +63,7 @@
     </div>
   </div>
 
-  <% if @event.image.attached? %>
+  <% if @event.image.attached? && @event.image.blob&.persisted? %>
     <div class="checkbox mb-3">
       <label>
         <%= f.check_box :remove_image %>

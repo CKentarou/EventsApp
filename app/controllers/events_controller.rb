@@ -30,6 +30,8 @@ class EventsController < ApplicationController
     @event = current_user.created_events.find(params[:id])
     if @event.update(event_params)
       redirect_to @event, notice: '更新しました'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
