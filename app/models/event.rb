@@ -3,7 +3,7 @@ class Event < ApplicationRecord
   before_save :remove_image_if_user_accept
   belongs_to :owner, class_name: 'User'
   has_many :tickets, dependent: :destroy
-  has_one_attached :image
+  has_one_attached :image, dependent: false
 
   validates :name, length: {maximum: 50}, presence: true
   validates :place, length: {maximum: 100}, presence: true
