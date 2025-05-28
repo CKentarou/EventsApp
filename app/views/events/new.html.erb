@@ -18,7 +18,7 @@
           <h2 class="mb-0">イベント作成</h2>
         </div>
         <div class="card-body">
-          <%= form_with(model: @event, class: "form-horizontal", local: true) do |f| %>
+          <%= form_with(model: @event, class: "form-horizontal", local: true, html: { multipart: true }) do |f| %>
 
             <div class="mb-3">
               <%= f.label :name, "イベント名", class: "form-label" %>
