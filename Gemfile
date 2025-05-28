@@ -63,3 +63,5 @@ gem 'omniauth-rails_csrf_protection'
 gem 'byebug'
 
 gem 'rails-i18n'
+
+gem 'active_storage_validations'

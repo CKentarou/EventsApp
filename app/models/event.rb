@@ -1,10 +1,11 @@
 class Event < ApplicationRecord
   attr_accessor :remove_image
-  before_save :remove_image_if_user_accept
+  before_save :remove_imgae_if_requested
   belongs_to :owner, class_name: 'User'
   has_many :tickets, dependent: :destroy
-  has_one_attached :image, dependent: false
+  has_one_attached :image
 
+  validates :image, content_type: [:png, :jpg, :jpeg]
   validates :name, length: {maximum: 50}, presence: true
   validates :place, length: {maximum: 100}, presence: true
   validates :content, length: {maximum: 2000}, presence: true
@@ -19,7 +20,7 @@ class Event < ApplicationRecord
 
   private
 
-  def remove_image_if_user_accept
+  def remove_imgae_if_requested
     self.image = nil if ActiveRecord::Type::Boolean.new.cast(remove_image)
   end
 
