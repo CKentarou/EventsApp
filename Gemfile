@@ -65,3 +65,5 @@ gem 'byebug'
 gem 'rails-i18n'
 
 gem 'active_storage_validations'
+
+gem 'kaminari'
