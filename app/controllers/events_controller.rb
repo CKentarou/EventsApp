@@ -27,9 +27,11 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event = current_user.created_eventes.find(params[:id])
+    @event = current_user.created_events.find(params[:id])
     if @event.update(event_params)
       redirect_to @event, notice: '更新しました'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -42,6 +44,6 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:name, :place, :content, :start_at, :end_at)
+    params.require(:event).permit(:name, :place, :content, :start_at, :end_at, :image, :remove_image)
   end
 end
